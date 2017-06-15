@@ -12,13 +12,14 @@ plt.style.use('ggplot')
 # It's located at 'Datasets/wheat.data'
 # 
 # .. your code here ..
-
+df = pd.read_csv("Datasets/wheat.data", index_col=0)
 
 #
 # TODO: Create a slice of your dataframe (call it s1)
 # that only includes the 'area' and 'perimeter' features
 # 
 # .. your code here ..
+s1 = df[["area", "perimeter"]]
 
 
 #
@@ -26,6 +27,7 @@ plt.style.use('ggplot')
 # that only includes the 'groove' and 'asymmetry' features
 # 
 # .. your code here ..
+s2 = df[["groove", "asymmetry"]]
 
 
 #
@@ -34,7 +36,8 @@ plt.style.use('ggplot')
 # Be sure to set alpha=0.75
 # 
 # .. your code here ..
-
+s1.plot.hist(alpha=0.75)
+s2.plot.hist(alpha=0.75)
 
 # Display the graphs:
 plt.show()
