@@ -15,6 +15,8 @@ plt.style.use('ggplot')
 # python list. You can call it 'samples'.
 #
 # .. your code here .. 
+samples = []
+colors = []
 
 #
 # TODO: Write a for-loop that iterates over the images in the
@@ -29,7 +31,10 @@ plt.style.use('ggplot')
 # effect on the algorithm's results.
 #
 # .. your code here .. 
-
+for i in range(5,360,5):
+    img = misc.imread("Datasets/ALOI/32/32_r" + str(i) + ".png").reshape(-1)
+    samples.append(img)
+    colors.append("b")
 
 #
 # TODO: Once you're done answering the first three questions,
@@ -39,13 +44,16 @@ plt.style.use('ggplot')
 # assignment and answer the final question below.
 #
 # .. your code here .. 
-
+for i in range(110, 225, 10):
+    img = misc.imread("Datasets/ALOI/32i/32_i" + str(i) + ".png").reshape(-1)
+    samples.append(img)
+    colors.append("r")
 
 #
 # TODO: Convert the list to a dataframe
 #
 # .. your code here .. 
-
+df = pd.DataFrame(samples)
 
 
 #
@@ -53,8 +61,10 @@ plt.style.use('ggplot')
 # to three components, using K=6 for your neighborhood size
 #
 # .. your code here .. 
-
-
+from sklearn.manifold import Isomap
+iso = Isomap(n_neighbors=6, n_components=3)
+iso.fit(df)
+iso_trans = iso.transform(df)
 
 #
 # TODO: Create a 2D Scatter plot to graph your manifold. You
@@ -62,6 +72,10 @@ plt.style.use('ggplot')
 # isomap components
 #
 # .. your code here .. 
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax.set_title("2D scatter plot of Isomap of 32")
+ax.scatter(iso_trans[:,0], iso_trans[:,1], marker="o", c=colors)
 
 
 
@@ -71,8 +85,9 @@ plt.style.use('ggplot')
 # can use either 'o' or '.' as your marker:
 #
 # .. your code here .. 
-
-
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(iso_trans[:,0], iso_trans[:,1], iso_trans[:,2], marker='.', c=colors)
 
 plt.show()
 

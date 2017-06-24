@@ -9,7 +9,7 @@ plt.style.use('ggplot')
 
 
 # Do * NOT * alter this line, until instructed!
-scaleFeatures = False
+scaleFeatures = True
 
 
 # TODO: Load up the dataset and remove any and all
@@ -20,7 +20,8 @@ scaleFeatures = False
 # feature?
 #
 # .. your code here ..
-
+df = pd.read_csv("Datasets/kidney_disease.csv", index_col = 0)
+df.dropna(axis=0, how="any", inplace=True)
 
 
 # Create some color coded labels; the actual label feature
@@ -33,6 +34,7 @@ labels = ['red' if i=='ckd' else 'green' for i in df.classification]
 #       ['bgr','wc','rc']
 #
 # .. your code here ..
+df = df[["bgr", "wc", "rc"]]
 
 
 
@@ -48,7 +50,9 @@ labels = ['red' if i=='ckd' else 'green' for i in df.classification]
 # an appropriate command to coerce these features into the right type.
 #
 # .. your code here ..
-
+df.wc = pd.to_numeric(df.wc, errors='coerce')
+df.rc = pd.to_numeric(df.rc, errors='coerce')
+print df.dtypes
 
 
 # TODO: PCA Operates based on variance. The variable with the greatest
@@ -61,7 +65,8 @@ labels = ['red' if i=='ckd' else 'green' for i in df.classification]
 # you probably didn't complete the previous step properly.
 #
 # .. your code here ..
-
+print df.var()
+print df.describe()
 
 
 # TODO: This method assumes your dataframe is called df. If it isn't,
@@ -78,6 +83,12 @@ if scaleFeatures: df = helper.scaleFeatures(df)
 # and that the results of your transformation are saved in 'T'.
 #
 # .. your code here ..
+import numpy as np
+from sklearn.decomposition import PCA
+  
+pca = PCA(n_components=2, svd_solver="full")
+pca.fit(df)
+T = pca.transform(df)
 
 
 # Plot the transformed data as a scatter plot. Recall that transforming
