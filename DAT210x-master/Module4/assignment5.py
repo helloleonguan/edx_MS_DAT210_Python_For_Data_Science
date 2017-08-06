@@ -44,10 +44,10 @@ for i in range(5,360,5):
 # assignment and answer the final question below.
 #
 # .. your code here .. 
-for i in range(110, 225, 10):
-    img = misc.imread("Datasets/ALOI/32i/32_i" + str(i) + ".png").reshape(-1)
-    samples.append(img)
-    colors.append("r")
+#for i in range(110, 225, 10):
+#    img = misc.imread("Datasets/ALOI/32i/32_i" + str(i) + ".png").reshape(-1)
+#    samples.append(img)
+#    colors.append("r")
 
 #
 # TODO: Convert the list to a dataframe
@@ -62,7 +62,7 @@ df = pd.DataFrame(samples)
 #
 # .. your code here .. 
 from sklearn.manifold import Isomap
-iso = Isomap(n_neighbors=6, n_components=3)
+iso = Isomap(n_neighbors=2, n_components=3)
 iso.fit(df)
 iso_trans = iso.transform(df)
 
